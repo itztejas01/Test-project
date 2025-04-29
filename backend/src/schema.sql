@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS Students (
+    student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    full_name TEXT NOT NULL,    
+    date_of_birth DATE NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status INTEGER DEFAULT 1
+);
+
+-- Table: Marks
+CREATE TABLE IF NOT EXISTS  Marks (
+    mark_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER NOT NULL,    
+    marks_obtained REAL NOT NULL,
+    exam_date DATE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status INTEGER DEFAULT 1,
+    FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE RESTRICT ON UPDATE CASCADE    
+);
