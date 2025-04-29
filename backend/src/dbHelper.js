@@ -86,9 +86,12 @@ const getStudentsList = (page = 1, limit = PAGE_LIMIT) => {
 
 const deleteStudentRecord = (id) => {
   return new Promise((resolve, reject) => {
-    db.run("DELETE FROM Students WHERE student_id = ?", [id], (err) => {
+    db.run("DELETE FROM Marks WHERE student_id = ?", [id], (err) => {
       if (err) reject(err);
-      resolve();
+      db.run("DELETE FROM Students WHERE student_id = ?", [id], (err) => {
+        if (err) reject(err);
+        resolve();
+      });
     });
   });
 };
@@ -103,7 +106,7 @@ const getStudentWithMarks = (id) => {
         if (!studentRow) resolve(null);
 
         db.get(
-          "SELECT * FROM Marks WHERE student_id = ?",
+          "SELECT marks_obtained as marks, exam_date FROM Marks WHERE student_id = ?",
           [id],
           (err, marksRow) => {
             if (err) reject(err);

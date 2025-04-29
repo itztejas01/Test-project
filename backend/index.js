@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", getStudents);
+app.get("/students", getStudents);
 app.post("/create-student", createStudent);
 app.delete("/delete-student/:id", deleteStudent);
 app.put("/update-student/:id", updateStudent);
